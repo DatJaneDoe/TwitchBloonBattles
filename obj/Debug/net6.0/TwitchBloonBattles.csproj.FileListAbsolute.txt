@@ -1,0 +1,9 @@
+C:\Program Files (x86)\Steam\steamapps\common\BloonsTD6\Mods\Debug\net6.0\TwitchBloonBattles.deps.json
+C:\Program Files (x86)\Steam\steamapps\common\BloonsTD6\Mods\Debug\net6.0\TwitchBloonBattles.dll
+C:\Users\naoki\Downloads\Chat\obj\Debug\net6.0\TwitchBloonBattles.csproj.AssemblyReference.cache
+C:\Users\naoki\Downloads\Chat\obj\Debug\net6.0\TwitchBloonBattles.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\naoki\Downloads\Chat\obj\Debug\net6.0\TwitchBloonBattles.AssemblyInfoInputs.cache
+C:\Users\naoki\Downloads\Chat\obj\Debug\net6.0\TwitchBloonBattles.AssemblyInfo.cs
+C:\Users\naoki\Downloads\Chat\obj\Debug\net6.0\TwitchBloonBattles.csproj.CoreCompileInputs.cache
+C:\Users\naoki\Downloads\Chat\obj\Debug\net6.0\TwitchBl.F34828CE.Up2Date
+C:\Users\naoki\Downloads\Chat\obj\Debug\net6.0\TwitchBloonBattles.dll

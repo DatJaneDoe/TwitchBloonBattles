@@ -1,0 +1,9 @@
+C:\Program Files (x86)\Steam\steamapps\common\BloonsTD6\Mods\Debug\net9.0\Chat.deps.json
+C:\Program Files (x86)\Steam\steamapps\common\BloonsTD6\Mods\Debug\net9.0\Chat.dll
+C:\Users\naoki\Downloads\Chat\obj\Debug\net9.0\Chat.csproj.AssemblyReference.cache
+C:\Users\naoki\Downloads\Chat\obj\Debug\net9.0\Chat.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\naoki\Downloads\Chat\obj\Debug\net9.0\Chat.AssemblyInfoInputs.cache
+C:\Users\naoki\Downloads\Chat\obj\Debug\net9.0\Chat.AssemblyInfo.cs
+C:\Users\naoki\Downloads\Chat\obj\Debug\net9.0\Chat.csproj.CoreCompileInputs.cache
+C:\Users\naoki\Downloads\Chat\obj\Debug\net9.0\Chat.csproj.Up2Date
+C:\Users\naoki\Downloads\Chat\obj\Debug\net9.0\Chat.dll
