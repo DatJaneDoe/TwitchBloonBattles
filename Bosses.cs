@@ -96,48 +96,7 @@ public class Bosses
 
         }
     }
-    [HarmonyPatch(typeof(ProfileModel), nameof(ProfileModel.Validate))]
-    public class ProfileUpdate
-    {
-        [HarmonyLib.HarmonyPrefix]
-        public static void Prefix(ProfileModel __instance)
-        {
-             if(__instance.monkeyMoney.Value < 100000)
-            {
-                __instance.monkeyMoney.Value = 100000;
-            }
-            foreach(var tower in Game.instance.model.towers)
-            {
-                
-               
-                if(tower.IsHero())
-                {
-                    if (!tower.isSubTower)
-                    {
-                        __instance.unlockedHeroes.AddIfNotPresent(tower.baseId);
-                    }
-                }
-                else
-                {
-                    if (tower.upgrades.Count > 0)
-                    {
-                        __instance.unlockedTowers.AddIfNotPresent(tower.baseId);
-                    }
-                }
-            }
-            foreach (var tower in Game.instance.model.upgrades)
-            {
-               
-                    __instance.acquiredUpgrades.AddIfNotPresent(tower.name);
-
-               
-            }
-           
-
-        }
-
-    }
-
+   
     
 
             [HarmonyPatch(typeof(TitleScreen), nameof(TitleScreen.Start))]
