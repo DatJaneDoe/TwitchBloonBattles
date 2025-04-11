@@ -441,13 +441,13 @@ public class Bosses
     }
 
     [HarmonyPatch(typeof(InGame), nameof(InGame.Lose))]
-    public class TitleScreenInitss
+    public class LossPatch
     {
         [HarmonyPostfix]
         public static void Postfix()
         {
-
-            
+            // If you lose, gives you the money equal to the continue cost effectively making it free
+            profile.monkeyMoney.Value += InGame.instance.GetContinueCost().Value;
             Reset();
             foreach (var item in counters)
             {
