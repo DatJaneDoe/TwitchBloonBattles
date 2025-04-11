@@ -46,6 +46,7 @@ using static Il2CppAssets.Scripts.Utils.ObjectCache;
 using Il2CppAssets.Scripts.Simulation.Towers;
 using Il2CppAssets.Scripts.Simulation.Input;
 using Il2CppAssets.Scripts.Unity.UI_New.LevelUp;
+using Il2CppAssets.Scripts.Unity.Bridge;
 
 namespace TwitchBloonBattles;
 
@@ -53,7 +54,7 @@ public class Bosses
 {    
 
     public static Chatter bot;
-
+    public static ProfileModel profile;
 
     public class TwitchIconLarge : ModDisplay
     {
@@ -90,13 +91,15 @@ public class Bosses
 
         public override void ModifyDisplayNode(UnityDisplayNode node)
         {
+            node.GetRenderer<SpriteRenderer>().gameObject.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
             node.GetRenderer<SpriteRenderer>().gameObject.transform.localPosition = new Vector3(6,0,10);
           
-            Set2DTexture(node, "chatSmall");
+            Set2DTexture(node, "chat");
 
         }
     }
    
+
     
 
             [HarmonyPatch(typeof(TitleScreen), nameof(TitleScreen.Start))]
@@ -203,7 +206,6 @@ public class Bosses
 
             baseBloonCosts["Speed"] = 60; 
             baseBloonCosts["Shield"] = 60;
-
 
 
             baseBloonCosts["Boss1"] = 500;
@@ -432,9 +434,9 @@ public class Bosses
         client.OnMessageReceived += (sender, messageRecieved) =>
         {
 
-          
-           
-            MessageFunctions(messageRecieved.ChatMessage.Username, messageRecieved.ChatMessage.IsSubscriber, messageRecieved.ChatMessage.Message);
+            
+
+              MessageFunctions(messageRecieved.ChatMessage.Username, messageRecieved.ChatMessage.IsSubscriber, messageRecieved.ChatMessage.Message, messageRecieved.ChatMessage.Bits);
         };
     }
 
@@ -495,7 +497,7 @@ public class Bosses
         public static void Postfix()
         {
         
-
+           
             relativeRound = 1;
             counters["InfoUI"] = 1000;
             Reset(true);
@@ -513,12 +515,70 @@ public class Bosses
        
 
     }
-    [HarmonyPatch(typeof(InGame), nameof(InGame.RoundStart))]
+    public static void DistributeBonusXP(double xp)
+    {
+        float total = 0;
+        if (xp > 0)
+        {
+            profile.xp.Value += xp * 0.001f;
+
+
+            foreach (TowerToSimulation simtower in InGame.instance.bridge.GetAllTowers().ToList())
+            {
+                if (!simtower.tower.towerModel.IsHero() && !simtower.tower.towerModel.isSubTower)
+                {
+                    total += simtower.tower.worth;
+                }
+            }
+            foreach (TowerToSimulation simtower in InGame.instance.bridge.GetAllTowers().ToList())
+            {
+                if (!simtower.tower.towerModel.IsHero() && !simtower.tower.towerModel.isSubTower)
+                {
+                    float perc = simtower.tower.worth / total;
+                    profile.towerXp[simtower.tower.towerModel.baseId].Value += perc * xp;
+
+
+                }
+            }
+            foreach (var pair in profile.towerXp)
+            {
+                profile.towerXp[pair.Key].Value += xp * 0.05f;
+            }
+            profile.monkeyMoney.Value += xp * 0.001f;
+        }
+    }
+    
+    [HarmonyPatch(typeof(ProfileModel), nameof(ProfileModel.Validate))]
+    public class RoundUpdateSendsStarts
+    {
+        [HarmonyPostfix]
+        public static void Postfix(ProfileModel __instance)
+        {
+            profile = __instance;
+           
+            profile.HasCompletedTutorial = true;
+            
+            
+          
+        }
+
+    }
+    
+            [HarmonyPatch(typeof(InGame), nameof(InGame.RoundStart))]
     public class RoundUpdateSendsStart
     {
         [HarmonyPostfix]
         public static void Postfix(int roundArrayIndex)
         {
+           
+          
+            if (profile != null && BonusForSends)
+            {
+                DistributeBonusXP(roundSpent);
+            }
+
+          roundSpent = 0;
+
             if (roundArrayIndex > 2)
             {
                 foreach (var chatter in chatters)

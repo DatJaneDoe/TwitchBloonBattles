@@ -142,10 +142,9 @@ public class UIFunctions : BloonsTD6Mod
 
 
     };
-
-
-
-public static ModSettingInt SubscriberEcoMultiplier = new ModSettingInt(200)
+    public static double roundSpent = 0;
+    
+    public static ModSettingInt SubscriberEcoMultiplier = new ModSettingInt(150)
 
     {
         description = "Same as Eco multiplier but for subscribers, incase you want to give them special treatment. Example: Setting Eco multiplier to 100 and this to 200 will result in non-subscribers having normal eco while subscribers get double eco"
@@ -164,7 +163,11 @@ public readonly static ModSettingInt PointsPerBit = new ModSettingInt(10)
         description = "When someone awards bits, multiply the points they get by the number of chatters"
 
     };
+    public static ModSettingBool BonusForSends = new ModSettingBool(true)
+    {
+        description = "Award additional XP and Monkey Money for chat sends. Allows streamers to unlock towers faster in order to counter chat sends"
 
+    };
     public static ModSettingBool OnlySubsCanVoteBoss = new ModSettingBool(false)
      {
         description = "When enabled, only subs can vote for bosses. If disabled, everyone can vote"
@@ -221,7 +224,7 @@ public static ModHelperPanel upperUI;
 
     public static int relativeRound = 1;
 
-    public static float[] ecoMult = new float[] { 1,1, 0.8f, 0.8f, 0.5f, 0.2f, 0.2f, 0,0,0};
+    public static float[] ecoMult = new float[] { 1,1, 0.8f, 0.8f, 0.5f, 0f, 0f, 0,0,0};
 
     public static Color[] multColors = new Color[] {Color.green, Color.green, Color.yellow, Color.yellow, new Color(1,0.5f,0), new Color(0.6f, 0.4f, 0), new Color(0.6f, 0.4f, 0) ,  Color.red, new Color(1, 0f, 1), new Color(0.7f, 0f, 0.7f) };
 
@@ -529,7 +532,7 @@ public static ModHelperPanel upperUI;
     }
  
     
-    public static void MessageFunctions(string name, bool isSubscriber, string text)
+    public static void MessageFunctions(string name, bool isSubscriber, string text, int bits = 0)
     {
         bool isSub = false;
 
@@ -550,7 +553,15 @@ public static ModHelperPanel upperUI;
         {
             Chatter chatter = chatters[name];
 
-
+            if(bits > 0)
+            {
+                int award = bits * PointsPerBit;
+                if (ScalePointsPerBit)
+                {
+                    award *= chatters.Count;
+                }
+                chatter.points += award;    
+            }
 
             int difference = ecoTicks - chatter.lastSent;
 
@@ -569,7 +580,7 @@ public static ModHelperPanel upperUI;
             {
                 eco *= EcoMultiplier * 0.01f;
             }
-
+           
 
 
             chatter.points += eco;
@@ -1059,7 +1070,7 @@ public static ModHelperPanel upperUI;
     [HarmonyLib.HarmonyPatch(typeof(InGame), nameof(InGame.GetContinueCost))]
     public class NoCostContinue
     {
-        [HarmonyLib.HarmonyPostfix]
+        [HarmonyLib.HarmonyPrefix]
         public static void Postfix(ref KonFuze __result)
         {
 
@@ -1416,6 +1427,7 @@ public static ModHelperPanel upperUI;
                                 {
                                     slotInfos[i].text.Text.color = new Color(1, 1, 1);
 
+                                roundSpent +=Math.Pow(Math.Max( activeSends[i].baseCost/2f,1 ), 2);
                                      
                                     if (activeSends[i].modifier == Modifier.None)
                                     {
@@ -1615,6 +1627,7 @@ public static ModHelperPanel upperUI;
                         {
 
                             MelonLogger.Msg("Connected user " + client.TwitchUsername);
+                            
 
                         }
                         else
