@@ -12,6 +12,6 @@ If you already know how to mod Bloons Tower Defense 6 and have ModHelper, skip s
 
 4. [In releases](https://github.com/DatJaneDoe/TwitchBloonBattles/releases/tag/v48), download the UserLibs zip file and unzip it. Drag it's contents into your UserLibs folder found in the BloonsTD6 directory
 ![here](https://github.com/user-attachments/assets/9a15704c-e28e-4660-90af-1aaf93906952)
-(in the BloonsTD6 folder, see image for directory)
+(see image for directory)
 
 If you have any issues, contact djdmods on Discord
