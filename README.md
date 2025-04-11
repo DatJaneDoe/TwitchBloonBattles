@@ -4,13 +4,9 @@ Step By Step Installation Instructions:
 If you already know how to mod Bloons Tower Defense 6 and have ModHelper, skip steps 1 and 2.
 
 
-1. Install Bloons Tower Defense 6,
+1. Buy Bloons Tower Defense 6 on Steam or Epic.
  
-2. Install Melonloader and Modhelper
-
-https://gurrenm3.github.io/BTD-Mod-Helper/wiki/Install-Guide
-
- 
+2. Install Melonloader and Modhelper: https://gurrenm3.github.io/BTD-Mod-Helper/wiki/Install-Guide
 
 3. Download TwitchBloonBattles.dll from releases and put it in the Mods folder
 
