@@ -14,7 +14,10 @@ If you already know how to mod Bloons Tower Defense 6 and have ModHelper, skip s
 ![here](https://github.com/user-attachments/assets/9a15704c-e28e-4660-90af-1aaf93906952)
 (see image for directory)
 
-5. Once you've done all of the above, you can launch the game then follow these steps to set it up: https://www.youtube.com/watch?v=FPfXX7pY1CY
+
+Using the Mod:
+
+Once you've done all of the above, you can launch the game then follow these steps to set it up: https://www.youtube.com/watch?v=FPfXX7pY1CY
 
 
 If you have any issues, contact djdmods on Discord
