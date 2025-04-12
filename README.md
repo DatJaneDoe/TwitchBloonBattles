@@ -22,3 +22,5 @@ Once you've done all of the above, you can launch the game then follow these ste
 
 
 If you have any issues, contact djdmods on Discord
+
+Demonstration Video: https://www.youtube.com/watch?v=7tudAbtkImw
